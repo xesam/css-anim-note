@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>css-anim-1</title>
+    <style>
+        .counter {
+            margin-top: 300px;
+            position: relative;
+            height: 200px;
+            border: 1px solid blue;
+        }
+
+        .num {
+            position: absolute;
+            width: 200px;
+            height: 100%;
+            line-height: 100%;
+            font-size: 100px;
+            text-align: center;
+        }
+
+        .num_1 {
+            opacity: 0;
+            transform: translate(0, -100%);
+        }
+
+        .num_2 {
+            transform: translate(0, 0);
+        }
+
+        .num.in {
+            opacity: 0;
+            animation: in 1s linear;
+            animation-fill-mode: forwards;
+        }
+
+        .num.out {
+            opacity: 1;
+            animation: out 1s linear;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes in {
+            0% {
+                opacity: 0;
+                transform: translate(0, -100%);
+            }
+
+            25% {
+                opacity: 0.25;
+                transform: translate(0, -75%);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: translate(0, -50%);
+            }
+
+            75% {
+                opacity: 0.75;
+                transform: translate(0, -25%);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes out {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+
+            25% {
+                opacity: 0.75;
+                transform: translate(0, -25%);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: translate(0, -50%);
+            }
+
+            75% {
+                opacity: 0.25;
+                transform: translate(0, -75%);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(0, -100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="counter">
+        <div id="number1" class="num num_1">9</div>
+        <div id="number2" class="num num_2">10</div>
+    </div>
+    <div><button id="start">start</button></div>
+
+    <script>
+        const number1 = document.getElementById('number1');
+        const number2 = document.getElementById('number2');
+
+        document.getElementById('start').addEventListener('click', () => {
+            number1.classList.add('in');
+            number2.classList.add('out');
+        }, false);
+
+        number1.addEventListener('animationend', e => {
+            if (number1.classList.contains('in')) {
+                number1.classList.remove('in');
+                number1.classList.add('out');
+            } else {
+                number1.classList.add('in');
+                number1.classList.remove('out');
+            }
+        });
+
+        number2.addEventListener('animationend', e => {
+            if (number2.classList.contains('out')) {
+                number2.classList.remove('out');
+                number2.classList.add('in');
+            } else {
+                number2.classList.add('out');
+                number2.classList.remove('in');
+            }
+        });
+    </script>
+</body>
+
+</html>
